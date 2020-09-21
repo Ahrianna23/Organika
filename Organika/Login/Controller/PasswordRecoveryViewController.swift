@@ -15,7 +15,6 @@ class PasswordRecoveryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     @IBAction func resetPasswordButtonTapped(_ sender: UIButton) {

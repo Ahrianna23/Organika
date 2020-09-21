@@ -10,20 +10,34 @@ import Foundation
 
 class LoginManager {
     
+    /// Hardcoded login and password to check completion handler
+    static var createdEmail = "1@2.com"
+    static var createdPassword = "123456"
+    
     // TODO: Connect all login things to a database
-    static func loginUser(with email: String, password: String) {
-        print("login procedure launched for User: \(email)")
+    static func loginUser(with email: String, _ password: String, completion: @escaping (Bool) -> Void) {
+        /// Change this to database response 
+        if email == createdEmail && password == createdPassword {
+            print(" - Login procedure launched for User: \(email)")
+            completion(true)
+        } else {
+            completion(false)
+        }
     }
     
-    static func createUser(with email: String, password: String) {
-        print("User creation procedure launched with Email: \(email) and Password: \(password)")
+    static func createUser(with email: String, _ password: String) {
+        print(" - User creation procedure launched with Email: \(email) and Password: \(password)")
+        createdEmail = email
+        createdPassword = password
     }
     
     static func logoutUser() {
-        print("log out procedure launched")
+        print(" - Log out procedure launched")
     }
     
     static func forgotPassword(for email: String) {
-        print("forgot password procedure launched")
+        print(" - Forgot password procedure launched")
     }
+    
+    //TODO: Create email checker to match "xxx@xxx.xxx" scheme (?)
 }

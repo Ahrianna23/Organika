@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
     }
 
@@ -38,15 +37,30 @@ class LoginViewController: UIViewController {
         loginButton.dropShadow()
         
         // TODO: Create Constant for every important variable
-        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Username or Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         
         self.navigationController?.isNavigationBarHidden = true
     }
+    
+    func clearTextFields() {
+        usernameTextField.text = ""
+        passwordTextField.text = ""
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+    }
 
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         if let username = usernameTextField.text, let password = passwordTextField.text {
-            LoginManager.loginUser(with: username, password: password)
+            LoginManager.loginUser(with: username, password) { [weak self] isLoggedIn in
+                if isLoggedIn {
+                    self?.clearTextFields()
+                    self?.performSegue(withIdentifier: "LoginToMain", sender: self)
+                } else {
+                    // TODO: Create Error Handler to display error messages.
+                    print("Wrong email or password!")
+                }
+            }
         }
     }
     
