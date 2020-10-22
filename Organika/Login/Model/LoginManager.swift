@@ -10,6 +10,13 @@ import Foundation
 
 class LoginManager {
     
+    // TODO: Connect to other Log In procedures
+    enum State {
+        case unregistered
+        case loggedIn(User)
+        case sessionExpired(User)
+    }
+    
     /// Hardcoded login and password to check completion handler
     static var createdEmail = "1@2.com"
     static var createdPassword = "123456"
@@ -36,7 +43,7 @@ class LoginManager {
     }
     
     static func forgotPassword(for email: String) {
-        print(" - Forgot password procedure launched")
+        print(" - Password recovery procedure launched for: \(email)")
     }
     
     //TODO: Create email checker to match "xxx@xxx.xxx" scheme (?)

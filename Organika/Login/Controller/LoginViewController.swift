@@ -21,10 +21,16 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    // TODO: Move to constants
+    let loginButtonOriginalColor = UIColor.systemGray3.cgColor
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loginButton.layer.backgroundColor = loginButtonOriginalColor
     }
 
     func setupView() {
@@ -41,6 +47,9 @@ class LoginViewController: UIViewController {
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         
         self.navigationController?.isNavigationBarHidden = true
+        
+        usernameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     func clearTextFields() {
@@ -61,6 +70,15 @@ class LoginViewController: UIViewController {
                     print("Wrong email or password!")
                 }
             }
+        }
+    }
+    
+    @objc func textFieldDidChange() {
+        if usernameTextField.text != "" && passwordTextField.text != "" {
+            // Think about color scheme
+            loginButton.layer.backgroundColor = UIColor.green.cgColor
+        } else {
+            loginButton.layer.backgroundColor = loginButtonOriginalColor
         }
     }
     
