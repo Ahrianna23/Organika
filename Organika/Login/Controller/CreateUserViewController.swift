@@ -28,9 +28,9 @@ class CreateUserViewController: UIViewController {
     }
     
     func setupView() {
-        usernameView.layer.cornerRadius = usernameView.frame.height / 2
-        passwordView.layer.cornerRadius = passwordView.frame.height / 2
-        secondPasswordView.layer.cornerRadius = secondPasswordView.frame.height / 2
+        usernameView.layer.cornerRadius = usernameView.frame.height / 2.5
+        passwordView.layer.cornerRadius = passwordView.frame.height / 2.5
+        secondPasswordView.layer.cornerRadius = secondPasswordView.frame.height / 2.5
         createButton.layer.cornerRadius = createButton.frame.height / 4
         
         usernameView.dropShadow()
@@ -39,20 +39,21 @@ class CreateUserViewController: UIViewController {
         createButton.dropShadow()
         
         // TODO: Create Constant for every important variable
-        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Username or Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         secondPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Repeat password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
     }
     
     @IBAction func createButtonPressed(_ sender: UIButton) {
+        // TODO: Create a password checker to avoid easy passwords like "123456" - or db provider has this kind of check?
         if let email = usernameTextField.text, let password = passwordTextField.text, let secondPassword = secondPasswordTextField.text {
             if !email.isEmpty && !password.isEmpty && password == secondPassword {
-                LoginManager.createUser(with: email, password: password)
+                LoginManager.createUser(with: email, password)
                 
                 // TODO: Go to confirmation screen
                 /// Should we generate first password for the user and send it to the email?
                 /// And then ask user to change password in Settings
-                
+                dismiss(animated: true, completion: nil)
             }
         }
     }
